@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+}
+
+input {
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  margin: auto;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+}
+
+textarea {
+  font-size: 1rem;
+  padding: 10px 20px;
+  margin: auto;
+  width: 100%;
+  min-height: 150px;
+  max-height: 250px;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+}
+
+label {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}

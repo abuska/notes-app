@@ -1,0 +1,21 @@
+.layout-box {
+  .top-bar {
+    background: linear-gradient(to right, #000011, #000066);
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
+
+    h1 {
+      color: white;
+      font-size: 3rem;
+      text-align: center;
+      padding: 1rem 0;
+      margin: 0;
+    }
+  }
+
+  .page-content {
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+    margin: 2rem auto;
+  }
+}
