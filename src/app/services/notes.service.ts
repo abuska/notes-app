@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Note } from '../models/note.model';
+import { LocalService } from './localService.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NotesService {
+  private readonly localService = inject(LocalService);
   notes: Note[] = [
     {
       title: 'Note 1',
@@ -30,10 +32,18 @@ export class NotesService {
   searchText: string = '';
 
   getAll() {
+    let storedNotes = this.localService.getData('notes');
+    if (storedNotes) {
+      this.notes = JSON.parse(storedNotes);
+    }
     return this.notes;
   }
 
   getAllFiltered() {
+    let storedNotes = this.localService.getData('notes');
+    if (storedNotes) {
+      this.notes = JSON.parse(storedNotes);
+    }
     if (this.searchText) {
       return this.notes.filter((note) => {
         return (
@@ -57,15 +67,18 @@ export class NotesService {
   add(note: Note) {
     let newLength = this.notes.push(note);
     let index = newLength - 1;
+    this.localService.saveData('notes', this.notes);
     return index;
   }
 
   update(id: number, note: Note) {
     this.notes[id] = note;
+    this.localService.saveData('notes', this.notes);
   }
 
   delete(id: number) {
     this.notes.splice(id, 1);
+    this.localService.saveData('notes', this.notes);
   }
 
   updateSearchText(value: string) {
