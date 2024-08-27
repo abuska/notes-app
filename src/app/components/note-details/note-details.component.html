@@ -9,6 +9,7 @@
           name="title"
           required
           [ngModel]="note.title"
+          placeholder="Note title..."
         />
       </div>
     </div>
@@ -17,6 +18,7 @@
       <label class="label" for="body">Body</label>
       <div class="control">
         <textarea
+          placeholder="Note body..."
           id="body"
           name="body"
           required
@@ -26,8 +28,10 @@
     </div>
 
     <div class="button-container">
-      <button (click)="onCancel()" class="button" type="button">Cancel</button>
-      <button class="button" type="submit" [disabled]="!noteForm.valid">
+      <button (click)="onCancel()" class="secondary" type="button">
+        Cancel
+      </button>
+      <button class="primary" type="submit" [disabled]="!noteForm.valid">
         Save
       </button>
     </div>

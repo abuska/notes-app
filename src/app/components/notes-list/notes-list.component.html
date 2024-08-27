@@ -1,6 +1,10 @@
 <div class="main-container">
   <div class="search-bar-container">
-    <input type="text" placeholder="Search notes" #input />
+    <input
+      type="text"
+      placeholder="Search notes"
+      (input)="onSearchChange($event)"
+    />
   </div>
 
   <div class="notes-list">
@@ -13,6 +17,6 @@
   </div>
 
   <div class="button-container">
-    <button (click)="btnClick()">Add Note</button>
+    <button class="primary" (click)="btnClick()">Add Note</button>
   </div>
 </div>

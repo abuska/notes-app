@@ -39,16 +39,17 @@ export class NoteDetailsComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.new) {
-      console.log('new');
       this.notesService.add(form.value);
-      this.router.navigateByUrl('/');
     } else {
-      console.log('update');
       this.notesService.update(this.noteId, form.value);
-      this.router.navigateByUrl('/');
     }
+    this.navigateToList();
   }
   onCancel() {
+    this.navigateToList();
+  }
+
+  navigateToList() {
     this.router.navigateByUrl('/');
   }
 }

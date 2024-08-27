@@ -1,21 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NoteCardComponent } from '../note-card/note-card.component';
 import { NgFor } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Note } from '../../models/note.model';
 import { NotesService } from '../../services/notes.service';
-import { Router } from '@angular/router';
+import { NoteCardComponent } from '../note-card/note-card.component';
 
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [NoteCardComponent, NgFor],
+  imports: [NoteCardComponent, NgFor, FormsModule],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss',
 })
 export class NotesListComponent implements OnInit {
   notes: Note[] = new Array<Note>();
-
-  @Input() input: string = '';
 
   constructor(private notesService: NotesService, private router: Router) {}
 
@@ -28,9 +27,13 @@ export class NotesListComponent implements OnInit {
     this.router.navigateByUrl('/new');
   }
 
-  onSearchChange() {
-    console.log('Search text changed:', this.input);
-    //this.notesService.updateSearchText(searchText);
+  onSearchChange(event: Event) {
+    console.log(
+      'Search text changed:',
+      (event.target as HTMLInputElement).value
+    );
+    const searchText = (event.target as HTMLInputElement).value;
+    this.notesService.updateSearchText(searchText);
     this.notes = this.notesService.getAllFiltered();
   }
 }

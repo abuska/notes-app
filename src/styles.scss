@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: Arial;
 }
 
 input {
@@ -20,10 +21,27 @@ textarea {
   max-height: 250px;
   border: 1px solid #ccc;
   border-radius: 1rem;
+  font-family: Arial;
 }
 
 label {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
+}
+
+button {
+  padding: 8px 16px;
+  border-radius: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  &.primary {
+    background-color: #000066;
+    color: white;
+  }
+  &.secondary {
+    background-color: #6c757d;
+    color: white;
+  }
 }

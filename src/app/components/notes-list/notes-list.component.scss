@@ -1,5 +1,5 @@
 .main-container {
-  max-width: 500px;
+  width: 500px;
   .search-bar-container {
     display: flex;
     width: 100%;
@@ -11,6 +11,7 @@
     gap: 1rem;
   }
   .button-container {
+    // NOTE: this button could be a fixed button at the bottom of the screen
     //position: fixed;
     //bottom: 1rem;
     display: flex;
