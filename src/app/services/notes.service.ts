@@ -29,7 +29,6 @@ export class NotesService {
       body: 'This is the body of note 5',
     },
   ];
-  searchText: string = '';
 
   getAll() {
     let storedNotes = this.localService.getData('notes');
@@ -39,16 +38,16 @@ export class NotesService {
     return this.notes;
   }
 
-  getAllFiltered() {
+  getAllFiltered(searchText: string) {
     let storedNotes = this.localService.getData('notes');
     if (storedNotes) {
       this.notes = JSON.parse(storedNotes);
     }
-    if (this.searchText) {
+    if (searchText) {
       return this.notes.filter((note) => {
         return (
-          note.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
-          note.body.toLowerCase().includes(this.searchText.toLowerCase())
+          note.title.toLowerCase().includes(searchText.toLowerCase()) ||
+          note.body.toLowerCase().includes(searchText.toLowerCase())
         );
       });
     } else {
@@ -68,6 +67,7 @@ export class NotesService {
     let newLength = this.notes.push(note);
     let index = newLength - 1;
     this.localService.saveData('notes', this.notes);
+
     return index;
   }
 
@@ -79,13 +79,5 @@ export class NotesService {
   delete(id: number) {
     this.notes.splice(id, 1);
     this.localService.saveData('notes', this.notes);
-  }
-
-  updateSearchText(value: string) {
-    this.searchText = value;
-  }
-
-  resetSearchText() {
-    this.searchText = '';
   }
 }

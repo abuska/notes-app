@@ -1,7 +1,8 @@
 import { NgFor } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, debounceTime } from 'rxjs';
 import { Note } from '../../models/note.model';
 import { NotesService } from '../../services/notes.service';
 import { NoteCardComponent } from '../note-card/note-card.component';
@@ -15,11 +16,16 @@ import { NoteCardComponent } from '../note-card/note-card.component';
 })
 export class NotesListComponent implements OnInit {
   notes: Note[] = new Array<Note>();
+  searchText = new Subject<string>();
 
-  constructor(private notesService: NotesService, private router: Router) {}
+  constructor(private notesService: NotesService, private router: Router) {
+    this.searchText.pipe(debounceTime(300)).subscribe((value) => {
+      this.notes = this.notesService.getAllFiltered(value);
+    });
+  }
 
   ngOnInit(): void {
-    this.notes = this.notesService.getAllFiltered();
+    this.notes = this.notesService.getAll();
   }
 
   btnClick() {
@@ -28,12 +34,6 @@ export class NotesListComponent implements OnInit {
   }
 
   onSearchChange(event: Event) {
-    console.log(
-      'Search text changed:',
-      (event.target as HTMLInputElement).value
-    );
-    const searchText = (event.target as HTMLInputElement).value;
-    this.notesService.updateSearchText(searchText);
-    this.notes = this.notesService.getAllFiltered();
+    this.searchText.next((event.target as HTMLInputElement).value);
   }
 }
