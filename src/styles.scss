@@ -44,4 +44,10 @@ button {
     background-color: #6c757d;
     color: white;
   }
+
+  &:disabled {
+    background-color: #ccc;
+    color: white;
+    cursor: not-allowed;
+  }
 }
