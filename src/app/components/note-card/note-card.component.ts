@@ -22,6 +22,6 @@ export class NoteCardComponent {
   }
 
   onCardClick() {
-    this.routes.navigateByUrl('/' + this.index);
+    this.routes.navigateByUrl('/edit/' + this.index);
   }
 }
