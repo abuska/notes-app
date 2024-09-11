@@ -6,6 +6,7 @@ import { Subject, debounceTime } from 'rxjs';
 import { Note } from '../../models/note.model';
 import { NotesService } from '../../services/notes.service';
 import { NoteCardComponent } from '../note-card/note-card.component';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notes-list',
@@ -18,7 +19,12 @@ export class NotesListComponent implements OnInit {
   notes: Note[] = new Array<Note>();
   searchText = new Subject<string>();
 
-  constructor(private notesService: NotesService, private router: Router) {
+  constructor(
+    private notesService: NotesService,
+    private router: Router,
+    private meta: Meta,
+    private titleService: Title
+  ) {
     this.searchText.pipe(debounceTime(300)).subscribe((value) => {
       this.notes = this.notesService.getAllFiltered(value);
     });
@@ -26,6 +32,28 @@ export class NotesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.notes = this.notesService.getAll();
+
+    this.titleService.setTitle('Notes App - Notes List');
+    this.meta.updateTag({
+      name: 'description',
+      content: 'View all notes.',
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Angular, SEO, JavaScript',
+    });
+    this.meta.updateTag({
+      property: 'og:title',
+      content: 'Notes App - Notes List',
+    });
+    this.meta.updateTag({
+      property: 'og:description',
+      content: 'View all notes.',
+    });
+    this.meta.updateTag({
+      property: 'og:image',
+      content: 'path/to/about-image.png',
+    });
   }
 
   btnClick() {

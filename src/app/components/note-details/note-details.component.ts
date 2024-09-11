@@ -3,6 +3,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Note } from '../../models/note.model';
 import { NotesService } from '../../services/notes.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-note-details',
@@ -19,11 +20,14 @@ export class NoteDetailsComponent implements OnInit {
   constructor(
     private notesService: NotesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private meta: Meta,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
     this.note = new Note();
+
     this.route.params.subscribe((params) => {
       let id = +params['id'];
       let note = this.notesService.get(id);
@@ -34,6 +38,28 @@ export class NoteDetailsComponent implements OnInit {
       } else {
         this.new = true;
       }
+    });
+
+    this.titleService.setTitle('Notes App - Notes Details');
+    this.meta.updateTag({
+      name: 'description',
+      content: this.note.body,
+    });
+    this.meta.updateTag({
+      name: 'keywords',
+      content: 'Angular, SEO, JavaScript',
+    });
+    this.meta.updateTag({
+      property: 'og:title',
+      content: 'Notes App - Notes Details',
+    });
+    this.meta.updateTag({
+      property: 'og:description',
+      content: 'View note details.',
+    });
+    this.meta.updateTag({
+      property: 'og:image',
+      content: 'path/to/about-image.png',
     });
   }
 

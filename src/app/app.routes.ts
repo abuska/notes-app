@@ -10,11 +10,41 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: '', component: NotesListComponent },
-      { path: 'login', component: LoginPageComponent },
-      { path: 'new', component: NoteDetailsComponent },
-      { path: 'edit/:id', component: NoteDetailsComponent },
-      { path: 'not-found', component: PageNotFoundComponent },
+      {
+        path: '',
+        loadComponent: () =>
+          import('./components/notes-list/notes-list.component').then(
+            (m) => m.NotesListComponent
+          ),
+      },
+      {
+        path: 'login',
+        loadComponent: () =>
+          import('./components/login-page/login-page.component').then(
+            (m) => m.LoginPageComponent
+          ),
+      },
+      {
+        path: 'new',
+        loadComponent: () =>
+          import('./components/note-details/note-details.component').then(
+            (m) => m.NoteDetailsComponent
+          ),
+      },
+      {
+        path: 'edit/:id',
+        loadComponent: () =>
+          import('./components/note-details/note-details.component').then(
+            (m) => m.NoteDetailsComponent
+          ),
+      },
+      {
+        path: 'not-found',
+        loadComponent: () =>
+          import('./components/page-not-found/page-not-found.component').then(
+            (m) => m.PageNotFoundComponent
+          ),
+      },
       { path: '**', redirectTo: '/not-found' },
     ],
   },
